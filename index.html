@@ -778,7 +778,13 @@ document.getElementById('userInput').addEventListener('keydown', function (e) {
 });
 
 // ─── INIT ──────────────────────────────────────────────────────────────────
-showGreeting();
+document.addEventListener('DOMContentLoaded', function() {
+  showGreeting();
+});
+// Fallback: if DOMContentLoaded already fired (inline script case)
+if (document.readyState === 'interactive' || document.readyState === 'complete') {
+  showGreeting();
+}
 </script>
 </body>
 </html>
