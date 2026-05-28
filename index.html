@@ -226,7 +226,7 @@ async function callBackend(userText) {
   for (var i = 0; i < 3; i++) {
     try {
       var ctrl = new AbortController();
-      var timer = setTimeout(function() { ctrl.abort(); }, 20000);
+      var timer = setTimeout(function() { ctrl.abort(); }, 45000);
       var res = await fetch(BACKEND, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -301,3 +301,4 @@ window.addEventListener('load', function() {
 </script>
 </body>
 </html>
+
