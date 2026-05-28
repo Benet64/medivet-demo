@@ -128,6 +128,6 @@ function sendChip(text){if (busy) return;document.getElementById('userInput').va
 function resetChat(withGreeting = true){if (busy) return;history = [];currentModelIdx = 0;document.getElementById('messages').innerHTML = '';document.getElementById('chipsArea').style.display = 'flex';document.querySelectorAll('.sc-card').forEach(c => c.style.borderColor = '');if (withGreeting) showGreeting();}function showGreeting(){setTimeout(() =>{const g = '¡Hola! 👋 Soy el asistente de Medivet. Estoy aquí para ayudarte con tu mascota:citas,urgencias,precios o cualquier consulta. ¿En qué puedo ayudarte hoy?';addMsg('bot',safeHtml(g));history.push({role:'assistant',content:g});},300);}// ─── INPUT AUTO-RESIZE ─────────────────────────────────────────────────────
 document.getElementById('userInput').addEventListener('input',function (){this.style.height = 'auto';this.style.height = Math.min(this.scrollHeight,96) + 'px';});// Enter = enviar | Shift+Enter = nueva línea
 document.getElementById('userInput').addEventListener('keydown',function (e){if (e.key === 'Enter' && !e.shiftKey){e.preventDefault();sendMessage();}});// ─── INIT ──────────────────────────────────────────────────────────────────
-showGreeting();</script>
+document.addEventListener('DOMContentLoaded', function(){ showGreeting(); });</script>
 </body>
 </html>
