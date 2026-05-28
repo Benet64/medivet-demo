@@ -98,7 +98,9 @@ Senior +7 años:<strong>35€/mes</strong>
 </div>
 <button class="reset-btn" onclick="resetChat()">↺ Reiniciar demo</button>
 </div>
-<div class="messages" id="messages"></div>
+<div class="messages" id="messages">
+  <div class="msg bot"><div class="msg-av">🐾</div><div class="bubble">¡Hola! 👋 Soy el asistente de Medivet. Estoy aquí para ayudarte con tu mascota: citas, urgencias, precios o cualquier consulta. ¿En qué puedo ayudarte hoy?</div></div>
+</div>
 <div class="chips-area" id="chipsArea">
 <button class="chip" onclick="sendChip('🆘 Urgencia con mi perro')">🆘 Urgencia</button>
 <button class="chip" onclick="sendChip('Quiero pedir cita')">📅 Pedir cita</button>
@@ -132,15 +134,10 @@ const errMsg = getErrorMessage(e);showToast(errMsg);// Re-enable so user can ret
 return '📵 Sin conexión a internet. Comprueba tu red.';return '⚠️ Error temporal. Inténtalo de nuevo.';}// ─── CHIPS & SCENARIOS ─────────────────────────────────────────────────────
 function sendChip(text){if (busy) return;document.getElementById('userInput').value = text;sendMessage();}function launchScenario(cardEl,text){if (busy) return;document.querySelectorAll('.sc-card').forEach(c => c.style.borderColor = '');cardEl.style.borderColor = '#1a5e8a';resetChat(false);setTimeout(() =>{document.getElementById('userInput').value = text;sendMessage();},150);}// ─── RESET ─────────────────────────────────────────────────────────────────
 function resetChat(withGreeting = true){if (busy) return;history = [];currentModelIdx = 0;document.getElementById('messages').innerHTML = '';document.getElementById('chipsArea').style.display = 'flex';document.querySelectorAll('.sc-card').forEach(c => c.style.borderColor = '');if (withGreeting) showGreeting();}function showGreeting(){
-  const msgDiv = document.getElementById('messages');
-  if(!msgDiv) return;
-  msgDiv.style.display = 'flex';
   const greeting = '¡Hola! 👋 Soy el asistente de Medivet. Estoy aquí para ayudarte con tu mascota: citas, urgencias, precios o cualquier consulta. ¿En qué puedo ayudarte hoy?';
-  const d = document.createElement('div');
-  d.className = 'msg bot';
-  d.innerHTML = '<div class="msg-av">🐾</div><div class="bubble">' + greeting + '</div>';
-  msgDiv.appendChild(d);
   history.push({role:'assistant', content: greeting});
+  addMsg('bot', greeting);
+});
 }// ─── INPUT AUTO-RESIZE ─────────────────────────────────────────────────────
 document.getElementById('userInput').addEventListener('input',function (){this.style.height = 'auto';this.style.height = Math.min(this.scrollHeight,96) + 'px';});// Enter = enviar | Shift+Enter = nueva línea
 document.getElementById('userInput').addEventListener('keydown',function (e){if (e.key === 'Enter' && !e.shiftKey){e.preventDefault();sendMessage();}});// ─── INIT ──────────────────────────────────────────────────────────────────
