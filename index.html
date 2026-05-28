@@ -294,9 +294,15 @@ function resetDemo() {
   addMsg('bot', 'Hola! Soy el asistente de Medivet. Estoy aqui para ayudarte con tu mascota: citas, urgencias, precios o cualquier consulta. En que puedo ayudarte hoy?');
 }
 
-// Saludo inicial
+// Saludo inicial + warm-up del backend
 window.addEventListener('load', function() {
-  addMsg('bot', 'Hola! Soy el asistente de Medivet. Estoy aqui para ayudarte con tu mascota: citas, urgencias, precios o cualquier consulta. En que puedo ayudarte hoy?');
+  addMsg('bot', '¡Hola! Soy el asistente de Medivet. Estoy aquí para ayudarte con tu mascota: citas, urgencias, precios o cualquier consulta. ¿En qué puedo ayudarte hoy?');
+  // Warm-up silencioso para evitar cold start
+  fetch(BACKEND, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ping: true })
+  }).catch(function() {});
 });
 </script>
 </body>
