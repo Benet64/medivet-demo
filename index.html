@@ -454,12 +454,8 @@ body {
 
 <script>
 // ─── CONFIG ────────────────────────────────────────────────────────────────
-const GEMINI_KEY = 'AIzaSyD7eXFYMmQxYJJTNA4v_1HabKQ9D2R7LT8';
-const MODELS = [
-  'gemini-2.5-flash-lite',
-  'gemini-2.0-flash',
-  'gemini-1.5-flash'
-];
+const GEMINI_KEY = 'AIzaSyD1To9iYKEVBFs_wFas3K8cPh_AY8mwQCA';
+const MODELS = ['gemini-2.5-flash','gemini-2.5-flash-lite'];
 const MAX_RETRIES = 3;
 const TIMEOUT_MS  = 20000;
 const RETRY_DELAYS = [0, 1500, 3000]; // ms before each attempt
@@ -577,7 +573,7 @@ async function callGemini(userText) {
         const body = JSON.stringify({
           system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
           contents: buildContents(),
-          generationConfig: { temperature: 0.45, maxOutputTokens: 300, topP: 0.85 }
+          generationConfig: { temperature: 0.45, maxOutputTokens: 400, topP: 0.85 }
         });
 
         const res = await fetchWithTimeout(url, {
