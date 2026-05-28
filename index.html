@@ -134,9 +134,8 @@ const errMsg = getErrorMessage(e);showToast(errMsg);// Re-enable so user can ret
 return '📵 Sin conexión a internet. Comprueba tu red.';return '⚠️ Error temporal. Inténtalo de nuevo.';}// ─── CHIPS & SCENARIOS ─────────────────────────────────────────────────────
 function sendChip(text){if (busy) return;document.getElementById('userInput').value = text;sendMessage();}function launchScenario(cardEl,text){if (busy) return;document.querySelectorAll('.sc-card').forEach(c => c.style.borderColor = '');cardEl.style.borderColor = '#1a5e8a';resetChat(false);setTimeout(() =>{document.getElementById('userInput').value = text;sendMessage();},150);}// ─── RESET ─────────────────────────────────────────────────────────────────
 function resetChat(withGreeting = true){if (busy) return;history = [];currentModelIdx = 0;document.getElementById('messages').innerHTML = '';document.getElementById('chipsArea').style.display = 'flex';document.querySelectorAll('.sc-card').forEach(c => c.style.borderColor = '');if (withGreeting) showGreeting();}function showGreeting(){
-  const greeting = '¡Hola! 👋 Soy el asistente de Medivet. Estoy aquí para ayudarte con tu mascota: citas, urgencias, precios o cualquier consulta. ¿En qué puedo ayudarte hoy?';
-  history.push({role:'assistant', content: greeting});
-  addMsg('bot', greeting);
+  // El saludo ya está en el HTML, solo inicializamos history vacío
+  history = [];
 });
 }// ─── INPUT AUTO-RESIZE ─────────────────────────────────────────────────────
 document.getElementById('userInput').addEventListener('input',function (){this.style.height = 'auto';this.style.height = Math.min(this.scrollHeight,96) + 'px';});// Enter = enviar | Shift+Enter = nueva línea
