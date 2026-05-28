@@ -750,13 +750,9 @@ document.getElementById('userInput').addEventListener('keydown', function (e) {
 });
 
 // ─── INIT ──────────────────────────────────────────────────────────────────
-(function initApp() {
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', showGreeting);
-  } else {
-    showGreeting();
-  }
-})();
+window.addEventListener('load', function() {
+  setTimeout(showGreeting, 400);
+});
 </script>
 </body>
 </html>
