@@ -2,242 +2,383 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Demo IA · Medivet · Círculo IA</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medivet · Asistente IA</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#0f172a;min-height:100vh;display:flex;flex-direction:column;overflow:hidden;}.topbar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;height:58px;}.topbar-left{display:flex;align-items:center;gap:12px;}.topbar-logo{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,#1a5e8a,#0d3f5e);display:flex;align-items:center;justify-content:center;font-size:17px;}.topbar-title{color:white;font-size:14px;font-weight:600;}.topbar-sub{color:#64748b;font-size:11px;margin-top:1px;}.topbar-right{display:flex;align-items:center;gap:14px;}.badge-live{background:#10b981;color:white;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;display:flex;align-items:center;gap:5px;}.badge-live::before{content:"";width:6px;height:6px;background:white;border-radius:50%;animation:pulse 1.5s infinite;}@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}.powered{color:#475569;font-size:11px;}.powered strong{color:#64748b;}.main{flex:1;display:flex;overflow:hidden;height:calc(100vh - 58px);}.left-panel{width:300px;min-width:280px;background:#1e293b;border-right:1px solid #334155;display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0;}.left-panel::-webkit-scrollbar{width:4px;}.left-panel::-webkit-scrollbar-thumb{background:#334155;border-radius:2px;}.panel-section{padding:16px 16px 14px;border-bottom:1px solid #263345;}.panel-section:last-child{border-bottom:none;}.section-title{color:#64748b;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;}.sc-card{background:#0f172a;border:1px solid #2d3f52;border-radius:9px;padding:10px 12px;margin-bottom:6px;cursor:pointer;transition:border-color 0.15s,background 0.15s;display:flex;align-items:flex-start;gap:9px;user-select:none;}.sc-card:last-child{margin-bottom:0;}.sc-card:hover{border-color:#1a5e8a;background:#111f2e;}.sc-card:active{transform:scale(0.985);}.sc-icon{font-size:18px;flex-shrink:0;margin-top:1px;line-height:1;}.sc-title{color:#cbd5e1;font-size:12px;font-weight:600;margin-bottom:2px;}.sc-desc{color:#475569;font-size:11px;line-height:1.4;}.info-row{background:#0f172a;border:1px solid #2d3f52;border-radius:8px;padding:10px 12px;margin-bottom:6px;}.info-row:last-child{margin-bottom:0;}.info-label{color:#475569;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:5px;}.info-val{color:#94a3b8;font-size:11px;line-height:1.5;}.info-val strong{color:#38bdf8;}.right-panel{flex:1;display:flex!important;flex-direction:column;background:#f1f5f9;overflow:hidden;min-width:0;width:75%!important;}.chat-header{background:linear-gradient(135deg,#1a5e8a 0%,#0d3f5e 100%);padding:14px 22px;display:flex;align-items:center;gap:13px;flex-shrink:0;}.ch-avatar{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.12);border:2px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:21px;}.ch-info{flex:1;}.ch-info h2{color:white;font-size:15px;font-weight:700;}.ch-info p{color:rgba(255,255,255,0.65);font-size:12px;margin-top:2px;}.online-dot{display:inline-block;width:7px;height:7px;background:#4ade80;border-radius:50%;margin-right:5px;}.reset-btn{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);color:rgba(255,255,255,0.85);padding:6px 13px;border-radius:18px;font-size:12px;cursor:pointer;transition:background 0.15s;font-family:inherit;}.reset-btn:hover{background:rgba(255,255,255,0.22);}.messages{flex:1;overflow-y:auto;padding:20px 22px;display:flex!important;flex-direction:column;gap:12px;min-height:100px;}.messages::-webkit-scrollbar{width:5px;}.messages::-webkit-scrollbar-track{background:transparent;}.messages::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px;}.msg{display:flex;align-items:flex-end;gap:9px;max-width:78%;animation:fadeUp 0.2s ease-out;}@keyframes fadeUp{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:translateY(0);}}.msg.bot{align-self:flex-start;}.msg.user{align-self:flex-end;flex-direction:row-reverse;}.msg-av{width:30px;height:30px;border-radius:50%;background:#1a5e8a;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}.bubble{padding:11px 15px;border-radius:18px;font-size:14px;line-height:1.6;word-wrap:break-word;max-width:100%;}.bot .bubble{background:white;color:#1e293b;border-bottom-left-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,0.08);}.user .bubble{background:linear-gradient(135deg,#1a5e8a,#0d3f5e);color:white;border-bottom-right-radius:4px;}.typing-msg{display:flex;align-items:flex-end;gap:9px;align-self:flex-start;animation:fadeUp 0.2s ease-out;}.typing-bub{background:white;border-radius:18px;border-bottom-left-radius:4px;padding:13px 16px;display:flex;gap:5px;align-items:center;box-shadow:0 1px 4px rgba(0,0,0,0.08);}.typing-bub span{width:8px;height:8px;background:#94a3b8;border-radius:50%;animation:tdot 1.2s infinite;}.typing-bub span:nth-child(2){animation-delay:.2s}.typing-bub span:nth-child(3){animation-delay:.4s}@keyframes tdot{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-5px);opacity:1}}.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#ef4444;color:white;padding:10px 20px;border-radius:22px;font-size:13px;font-weight:500;box-shadow:0 4px 16px rgba(239,68,68,0.35);z-index:999;animation:slideUp 0.25s ease-out;white-space:nowrap;}@keyframes slideUp{from{opacity:0;transform:translateX(-50%) translateY(10px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}.chips-area{padding:10px 22px 4px;display:flex;flex-wrap:wrap;gap:7px;background:#f1f5f9;}.chip{background:white;border:1.5px solid #e2e8f0;border-radius:18px;padding:6px 13px;font-size:12px;color:#475569;cursor:pointer;transition:all 0.15s;white-space:nowrap;font-family:inherit;user-select:none;}.chip:hover{border-color:#1a5e8a;color:#1a5e8a;background:#f0f8ff;}.chip:active{transform:scale(0.96);}.input-area{padding:12px 22px 14px;background:white;border-top:1px solid #e2e8f0;display:flex;gap:9px;align-items:flex-end;flex-shrink:0;}#userInput{flex:1;border:1.5px solid #e2e8f0;border-radius:22px;padding:10px 16px;font-size:14px;font-family:inherit;outline:none;resize:none;max-height:96px;line-height:1.5;color:#1e293b;background:#f8fafc;transition:border-color 0.2s,background 0.2s;}#userInput:focus{border-color:#1a5e8a;background:white;}#userInput::placeholder{color:#94a3b8;}#userInput:disabled{opacity:0.6;}.send-btn{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#1a5e8a,#0d3f5e);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.12s,opacity 0.15s;box-shadow:0 2px 8px rgba(26,94,138,0.38);}.send-btn:hover:not(:disabled){transform:scale(1.07);}.send-btn:active:not(:disabled){transform:scale(0.94);}.send-btn:disabled{opacity:0.4;cursor:not-allowed;}.send-btn svg{fill:white;width:19px;height:19px;}</style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f4f8;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+header{background:#1a5e8a;color:#fff;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+header .brand{display:flex;align-items:center;gap:10px}
+header .logo{width:36px;height:36px;background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px}
+header .title{font-size:15px;font-weight:700}
+header .subtitle{font-size:12px;opacity:.8}
+header .badge{background:#00c853;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:12px}
+.powered{font-size:11px;color:rgba(255,255,255,.6)}
+.main{display:flex;flex:1;overflow:hidden}
+.sidebar{width:280px;background:#fff;border-right:1px solid #e2e8f0;display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0}
+.sidebar-section{padding:14px 16px 6px;font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.8px}
+.sc-card{padding:12px 16px;border-left:3px solid transparent;cursor:pointer;border-bottom:1px solid #f1f5f9;transition:all .15s}
+.sc-card:hover{background:#f8fafc;border-left-color:#1a5e8a}
+.sc-card .sc-icon{font-size:18px;margin-bottom:4px}
+.sc-card .sc-title{font-size:13px;font-weight:600;color:#1e293b}
+.sc-card .sc-desc{font-size:11px;color:#64748b;margin-top:2px}
+.chat{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.chat-header{background:#fff;border-bottom:1px solid #e2e8f0;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.chat-header .agent-info{display:flex;align-items:center;gap:10px}
+.agent-av{width:40px;height:40px;background:#e8f4fd;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px}
+.agent-name{font-size:15px;font-weight:700;color:#1e293b}
+.agent-status{font-size:12px;color:#00c853}
+.reset-btn{background:#f1f5f9;border:none;padding:7px 14px;border-radius:8px;font-size:12px;cursor:pointer;color:#475569;display:flex;align-items:center;gap:5px}
+.reset-btn:hover{background:#e2e8f0}
+.messages{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px}
+.msg{display:flex;align-items:flex-end;gap:8px;max-width:80%}
+.msg.bot{align-self:flex-start}
+.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.msg-av{width:32px;height:32px;background:#e8f4fd;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.bubble{padding:10px 14px;border-radius:16px;font-size:14px;line-height:1.5}
+.msg.bot .bubble{background:#fff;border:1px solid #e2e8f0;border-bottom-left-radius:4px;color:#1e293b}
+.msg.user .bubble{background:#1a5e8a;color:#fff;border-bottom-right-radius:4px}
+.typing-msg{display:flex;align-items:flex-end;gap:8px;align-self:flex-start}
+.typing-bub{background:#fff;border:1px solid #e2e8f0;border-radius:16px;border-bottom-left-radius:4px;padding:12px 16px;display:flex;gap:5px}
+.typing-bub span{width:7px;height:7px;background:#94a3b8;border-radius:50%;animation:bounce .9s infinite}
+.typing-bub span:nth-child(2){animation-delay:.15s}
+.typing-bub span:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+.input-area{background:#fff;border-top:1px solid #e2e8f0;padding:12px 16px;flex-shrink:0}
+.input-row{display:flex;gap:8px;align-items:flex-end}
+textarea{flex:1;border:1px solid #e2e8f0;border-radius:12px;padding:10px 14px;font-size:14px;font-family:inherit;resize:none;outline:none;min-height:44px;max-height:120px;line-height:1.4}
+textarea:focus{border-color:#1a5e8a}
+.send-btn{width:44px;height:44px;background:#1a5e8a;border:none;border-radius:12px;color:#fff;font-size:18px;cursor:pointer;flex-shrink:0}
+.send-btn:disabled{opacity:.4;cursor:not-allowed}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;z-index:9999;max-width:360px;text-align:center}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:10000;display:flex;align-items:center;justify-content:center}
+.overlay.hidden{display:none}
+.overlay-box{background:#fff;border-radius:16px;padding:28px;width:360px;max-width:90vw}
+.overlay-box h2{font-size:18px;color:#1e293b;margin-bottom:8px}
+.overlay-box p{font-size:13px;color:#64748b;margin-bottom:16px;line-height:1.5}
+.overlay-box input{width:100%;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px;font-size:14px;outline:none;margin-bottom:12px}
+.overlay-box input:focus{border-color:#1a5e8a}
+.overlay-box button{width:100%;background:#1a5e8a;color:#fff;border:none;border-radius:8px;padding:11px;font-size:14px;font-weight:600;cursor:pointer}
+.overlay-box button:hover{background:#154f75}
+.overlay-box .skip{text-align:center;margin-top:10px;font-size:12px;color:#94a3b8;cursor:pointer}
+.overlay-box .skip:hover{color:#64748b}
+</style>
 </head>
 <body>
-<div class="topbar">
-<div class="topbar-left">
-<div class="topbar-logo">🐾</div>
-<div>
-<div class="topbar-title">Medivet · Asistente IA</div>
-<div class="topbar-sub">Demo de presentación · Círculo IA</div>
-</div>
-</div>
-<div class="topbar-right">
-<div class="badge-live">IA en vivo</div>
-<div class="powered">Powered by <strong>Círculo IA</strong></div>
-</div>
-</div>
+
+<header>
+  <div class="brand">
+    <div class="logo">🐾</div>
+    <div>
+      <div class="title">Medivet · Asistente IA</div>
+      <div class="subtitle">Demo de presentación · Círculo IA</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <span class="badge">● IA en vivo</span>
+    <span class="powered">Powered by Círculo IA</span>
+  </div>
+</header>
+
 <div class="main">
-<div class="left-panel">
-<div class="panel-section">
-<div class="section-title">Escenarios de demo</div>
-<div class="sc-card" onclick="launchScenario(this,'Son las 11 de la noche y mi perro acaba de tener convulsiones,¿qué hago?')">
-<div class="sc-icon">🆘</div>
-<div><div class="sc-title">Urgencia nocturna</div><div class="sc-desc">Convulsiones 11pm. Derivación a urgencias 24h.</div></div>
-</div>
-<div class="sc-card" onclick="launchScenario(this,'Quiero pedir cita para vacunar a mi gato Nelio,tiene 4 años y estoy en Esparreguera')">
-<div class="sc-icon">📅</div>
-<div><div class="sc-title">Gestión de citas</div><div class="sc-desc">Recoge datos de mascota,zona y confirma cita.</div></div>
-</div>
-<div class="sc-card" onclick="launchScenario(this,'¿Cuánto cuesta castrar a mi perro? Pesa unos 15kg')">
-<div class="sc-icon">💰</div>
-<div><div class="sc-title">Consulta de precios</div><div class="sc-desc">Precios orientativos con contexto personalizado.</div></div>
-</div>
-<div class="sc-card" onclick="launchScenario(this,'¿Qué incluye el plan de salud? ¿Me compensa para mi gata adulta?')">
-<div class="sc-icon">🛡️</div>
-<div><div class="sc-title">Plan de Salud</div><div class="sc-desc">Coberturas y recomendación por edad/especie.</div></div>
-</div>
-<div class="sc-card" onclick="launchScenario(this,'Acabo de adoptar un cachorro de 2 meses,¿qué necesito hacer primero?')">
-<div class="sc-icon">🐶</div>
-<div><div class="sc-title">Cachorro nuevo</div><div class="sc-desc">Protocolo inicial:vacunas,microchip,desparasitación.</div></div>
-</div>
-<div class="sc-card" onclick="launchScenario(this,'Mi gato fue operado ayer y hoy no quiere comer nada,¿es normal?')">
-<div class="sc-icon">🩺</div>
-<div><div class="sc-title">Post-operatorio</div><div class="sc-desc">Seguimiento post-cirugía con orientación clínica.</div></div>
-</div>
-<div class="sc-card" onclick="launchScenario(this,'Vivo en Mollet del Vallès,¿qué clínica Medivet tengo más cerca?')">
-<div class="sc-icon">📍</div>
-<div><div class="sc-title">Localizar clínica</div><div class="sc-desc">Detecta ubicación y da la clínica más cercana.</div></div>
-</div>
-<div class="sc-card" onclick="launchScenario(this,'Necesito cancelar la cita que tenía mañana para mi perra Luna')">
-<div class="sc-icon">❌</div>
-<div><div class="sc-title">Cancelar cita</div><div class="sc-desc">Gestión de cancelaciones y reagendación.</div></div>
-</div>
-</div>
-<div class="panel-section">
-<div class="section-title">Red de clínicas</div>
-<div class="info-row">
-<div class="info-label">Cataluña</div>
-<div class="info-val">Granollers · Esparreguera · Sant Andreu<br><strong>Urgencias 24h:</strong> Feres Manresa · Vic</div>
-</div>
-<div class="info-row">
-<div class="info-label">Madrid</div>
-<div class="info-val">Diego de León · Plaza Colón · Las Lomas<br><strong>Urgencias 24h:</strong> La Vaguada · Majadahonda</div>
-</div>
-<div class="info-row">
-<div class="info-label">Alicante · Canarias · Otras</div>
-<div class="info-val"><strong>45+ clínicas</strong> en toda España</div>
-</div>
-</div>
-<div class="panel-section">
-<div class="section-title">Planes de Salud</div>
-<div class="info-row">
-<div class="info-label">Tarifas mensuales</div>
-<div class="info-val">
-Cachorro / Gatito:<strong>19€/mes</strong><br>
-Adulto:<strong>29€/mes</strong><br>
-Senior +7 años:<strong>35€/mes</strong>
-</div>
-</div>
-<div class="info-row">
-<div class="info-label">Incluye</div>
-<div class="info-val">Vacunas · Desparasitación · Revisión<br>Análisis · Dental · <strong>15% dto</strong> en todo</div>
-</div>
-</div>
-</div>
-<div class="right-panel">
-<div class="chat-header">
-<div class="ch-avatar">🐾</div>
-<div class="ch-info">
-<h2>Asistente Medivet</h2>
-<p><span class="online-dot"></span>En línea · 45 clínicas en España · Urgencias 24h</p>
-</div>
-<button class="reset-btn" onclick="resetChat()">↺ Reiniciar demo</button>
-</div>
-<div class="messages" id="messages">
-  <div class="msg bot"><div class="msg-av">🐾</div><div class="bubble">¡Hola! 👋 Soy el asistente de Medivet. Estoy aquí para ayudarte con tu mascota: citas, urgencias, precios o cualquier consulta. ¿En qué puedo ayudarte hoy?</div></div>
-</div>
-<div class="chips-area" id="chipsArea">
-<button class="chip" onclick="sendChip('🆘 Urgencia con mi perro')">🆘 Urgencia</button>
-<button class="chip" onclick="sendChip('Quiero pedir cita')">📅 Pedir cita</button>
-<button class="chip" onclick="sendChip('¿Cuánto cuesta castrar a mi perro de 15kg?')">💰 Precios</button>
-<button class="chip" onclick="sendChip('¿Qué incluye el plan de salud?')">🛡️ Plan salud</button>
-<button class="chip" onclick="sendChip('Acabo de adoptar un cachorro')">🐶 Cachorro nuevo</button>
-</div>
-<div class="input-area">
-<textarea id="userInput" placeholder="Escribe un mensaje o haz clic en un escenario…" rows="1"></textarea>
-<button class="send-btn" id="sendBtn" onclick="sendMessage()">
-<svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-</button>
-</div>
-</div>
-</div>
-<script>
-// ── CONFIGURACIÓN ────────────────────────────────────────────────────────────
-const MAX_RETRIES = 3;const TIMEOUT_MS = 20000;const RETRY_DELAYS = [0,1500,3000];
-let history = [];let busy = false;
+  <div class="sidebar">
+    <div class="sidebar-section">Escenarios de Demo</div>
 
-// ── API KEY MANAGEMENT ───────────────────────────────────────────────────────
-function getApiKey(){return sessionStorage.getItem('mv_api_key');}
-function setApiKey(k){sessionStorage.setItem('mv_api_key',k.trim());}
+    <div class="sc-card" onclick="runScenario(this,'Son las 11 de la noche y mi perro acaba de tener convulsiones. Vivo en Mollet del Vallès')">
+      <div class="sc-icon">🆘</div>
+      <div class="sc-title">Urgencia nocturna</div>
+      <div class="sc-desc">Convulsiones 11pm. Derivación a urgencias 24h.</div>
+    </div>
 
-function promptApiKey(){
-  const overlay = document.getElementById('apiOverlay');
-  overlay.style.display = 'flex';
-  document.getElementById('apiKeyInput').focus();
-}
+    <div class="sc-card" onclick="runScenario(this,'Quiero pedir cita para vacunar a mi gato Nelio, tiene 4 años y vivo en Granollers')">
+      <div class="sc-icon">📅</div>
+      <div class="sc-title">Gestión de citas</div>
+      <div class="sc-desc">Recoge datos de mascota, zona y confirma cita.</div>
+    </div>
 
-function confirmApiKey(){
-  const k = document.getElementById('apiKeyInput').value.trim();
-  if (!k || !k.startsWith('AIza')){
-    document.getElementById('apiKeyError').style.display = 'block';
-    return;
-  }
-  setApiKey(k);
-  document.getElementById('apiOverlay').style.display = 'none';
-  document.getElementById('apiKeyInput').value = '';
-}
+    <div class="sc-card" onclick="runScenario(this,'¿Cuánto cuesta castrar a mi perro? Pesa unos 15kg')">
+      <div class="sc-icon">💰</div>
+      <div class="sc-title">Consulta de precios</div>
+      <div class="sc-desc">Precios orientativos con contexto personalizado.</div>
+    </div>
 
-// Función directa a Gemini (sin backend)
-const GEMINI_URL_TPL = (key) => `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`;
+    <div class="sc-card" onclick="runScenario(this,'¿Qué incluye el plan de salud? ¿Me compensa para mi gata adulta de 6 años?')">
+      <div class="sc-icon">🛡️</div>
+      <div class="sc-title">Plan de Salud</div>
+      <div class="sc-desc">Coberturas y recomendación por edad/especie.</div>
+    </div>
 
-function ensureComplete(text){if (!text) return '';const t = text.trimEnd();if (/[.!?]$/.test(t)) return t;const last = Math.max(t.lastIndexOf('.'),t.lastIndexOf('!'),t.lastIndexOf('?'));return last > 5 ? t.substring(0,last + 1):t + '.';}
-function sleep(ms){return new Promise(r => setTimeout(r,ms));}
-async function fetchWithTimeout(url,options,timeoutMs){const controller = new AbortController();const timer = setTimeout(() => controller.abort(),timeoutMs);try{const res = await fetch(url,{...options,signal:controller.signal});clearTimeout(timer);return res;}catch (e){clearTimeout(timer);throw e;}}
-async function callGemini(userText){
-  const apiKey = getApiKey();
-  if (!apiKey){promptApiKey();throw new Error('NO_KEY');}
-  history.push({role:'user',content:userText});
-  let lastError = null;
-  const SYSTEM = `Eres el asistente virtual de MEDIVET España, red de más de 45 clínicas veterinarias con 500 profesionales. Tu nombre es "Asistente Medivet".
-REGLA CRÍTICA DE FORMATO: Máximo 3 frases cortas y COMPLETAS por respuesta. Nunca cortes una frase. Termina siempre con punto, exclamación o emoji.
-TU OBJETIVO: Convertir cada conversación en una cita o registro de interés.
+    <div class="sc-card" onclick="runScenario(this,'Acabo de adoptar un cachorro de 2 meses, ¿qué necesito hacer primero?')">
+      <div class="sc-icon">🐶</div>
+      <div class="sc-title">Cachorro nuevo</div>
+      <div class="sc-desc">Protocolo inicial: vacunas, microchip, desparasitación.</div>
+    </div>
 
-URGENCIAS: Ante síntomas graves (dificultad respiratoria, convulsiones, traumas, sangrados) dirige a la clínica urgencias 24h más cercana.
-CITAS: Recoge nombre mascota, especie/raza, motivo. Confirma la clínica más cercana y ofrece horarios (LUN-VIE 09-20h, SAB 10-14h).
-PRECIOS ORIENTATIVOS: Consulta 40-60€, Vacuna 20-40€, Castración gato 120-200€, Castración perro <10kg:150-250€ / 10-20kg:200-350€ / >20kg:300-500€, Limpieza dental 150-250€, Análisis sangre 40-60€.
-PLAN DE SALUD: Cachorro/Gatito 19€/mes, Adulto 29€/mes, Senior+7años 35€/mes. Incluye vacunas, desparasitación, revisiones, análisis, dental, 15% dto.
+    <div class="sc-card" onclick="runScenario(this,'Mi gato fue operado ayer y hoy no quiere comer nada, ¿es normal?')">
+      <div class="sc-icon">🩺</div>
+      <div class="sc-title">Post-operatorio</div>
+      <div class="sc-desc">Seguimiento post-cirugía con orientación clínica.</div>
+    </div>
 
-CLÍNICAS CATALUÑA: iVets Granollers (Granollers/Mollet ~15km), iVets Esparreguera, Castellbisbal, Kans&Co Manresa, Sant Andreu (Barcelona), Sant Joan de Vilatorrada, La Seda (El Prat), Mirasol (Sant Cugat), Mascots Sant Celoni.
-URGENCIAS 24H CATALUÑA: Feres Manresa, Santa Susanna, Vic.
-REGLA: Mollet del Vallès → iVets Granollers. Esparreguera → iVets Esparreguera.
+    <div class="sc-card" onclick="runScenario(this,'Vivo en Mollet del Vallès, ¿qué clínica Medivet tengo más cerca?')">
+      <div class="sc-icon">📍</div>
+      <div class="sc-title">Localizar clínica</div>
+      <div class="sc-desc">Detecta ubicación y da la clínica más cercana.</div>
+    </div>
 
-CLÍNICAS MADRID: Diego de León, Juan de Herrera, La Estrella, La Garena, Las Lomas, Layos, Loeches, Plaza Colón, Puerta de Toledo, Santa Teresa, Skinpet Móstoles, Sur Vallecas, Torres de la Alameda, Valdelasfuentes, Velilla, Europòlis Las Rozas.
-URGENCIAS 24H MADRID: Delicias, La Vaguada, Los Sauces Chamberí, Majadahonda.
-ALICANTE: Babel, Eurocan Campello, San Carlos, San Juan. URGENCIAS 24H: San Antonio.
-CANARIAS: Almatriche, Carrizal, Santa Catalina, Puerto del Rosario, La Oliva. URGENCIAS 24H: Benartemi, El Cabo.
-OTRAS: Ginzo de Limia (Ourense), Lorca (Murcia - URG 24H: La Flota), Tapia (Asturias).
+    <div class="sc-card" onclick="runScenario(this,'Necesito cancelar la cita que tenía mañana para mi perra Luna')">
+      <div class="sc-icon">❌</div>
+      <div class="sc-title">Cancelar cita</div>
+      <div class="sc-desc">Gestión de cancelaciones y reagendación.</div>
+    </div>
 
-POST-OPERATORIO: Si mascota no come tras cirugía, tranquiliza (normal 24h), recomienda comida húmeda tibia, indica llamar si pasa de 48h.
-ESTILO: Español, tutea siempre, emojis con moderación, cálido y profesional. Máximo 3 frases completas.`;
+    <div class="sidebar-section" style="margin-top:8px">Red de Clínicas</div>
+    <div style="padding:10px 16px;font-size:12px;color:#64748b;line-height:1.7">
+      45+ clínicas en España<br>
+      500 profesionales veterinarios<br>
+      Urgencias 24h disponibles<br>
+      Madrid · Barcelona · Valencia<br>
+      Sevilla · Bilbao · y más
+    </div>
+  </div>
 
-  const contents = history.map(m => ({
-    role: m.role === 'user' ? 'user' : 'model',
-    parts: [{text: m.content}]
-  }));
+  <div class="chat">
+    <div class="chat-header">
+      <div class="agent-info">
+        <div class="agent-av">🐾</div>
+        <div>
+          <div class="agent-name">Asistente Medivet</div>
+          <div class="agent-status">● En línea · 45 clínicas en España · Urgencias 24h</div>
+        </div>
+      </div>
+      <button class="reset-btn" onclick="resetDemo()">↺ Reiniciar demo</button>
+    </div>
 
-  for (let attempt = 0; attempt < MAX_RETRIES; attempt++){
-    if (attempt > 0) await sleep(RETRY_DELAYS[attempt]);
-    try{
-      const res = await fetchWithTimeout(GEMINI_URL_TPL(apiKey),{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({
-          system_instruction:{parts:[{text:SYSTEM}]},
-          contents,
-          generationConfig:{temperature:0.6,maxOutputTokens:300,topP:0.85}
-        })
-      },TIMEOUT_MS);
-      if (!res.ok){lastError = new Error('HTTP_'+res.status);continue;}
-      const data = await res.json();
-      const raw = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (!raw){lastError = new Error('EMPTY_RESPONSE');continue;}
-      const reply = ensureComplete(raw);
-      history.push({role:'assistant',content:reply});
-      return reply;
-    }catch(e){lastError = e;if (e.name === 'AbortError') continue;break;}
-  }
-  history.pop();
-  throw lastError || new Error('UNKNOWN');
-}
-// ─── UI HELPERS ────────────────────────────────────────────────────────────
-function scrollToBottom(){const m = document.getElementById('messages');m.scrollTop = m.scrollHeight;}function addMsg(role,html){const m = document.getElementById('messages');const d = document.createElement('div');d.className = `msg ${role}`;if (role === 'bot'){d.innerHTML = `<div class="msg-av">🐾</div><div class="bubble">${html}</div>`;}else{d.innerHTML = `<div class="bubble">${html}</div>`;}m.appendChild(d);scrollToBottom();return d;}function safeHtml(text){return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');}function showTyping(){const m = document.getElementById('messages');const d = document.createElement('div');d.id = 'typing';d.className = 'typing-msg';d.innerHTML = `<div class="msg-av">🐾</div><div class="typing-bub"><span></span><span></span><span></span></div>`;m.appendChild(d);scrollToBottom();}function removeTyping(){const t = document.getElementById('typing');if (t) t.remove();}function showToast(msg,duration = 4000){const old = document.querySelector('.toast');if (old) old.remove();const t = document.createElement('div');t.className = 'toast';t.textContent = msg;document.body.appendChild(t);setTimeout(() =>{if (t.parentNode) t.remove();},duration);}function setUI(disabled){document.getElementById('sendBtn').disabled = disabled;document.getElementById('userInput').disabled = disabled;}
-async function sendMessage(){if (busy) return;const input = document.getElementById('userInput');const text = input.value.trim();if (!text) return;input.value = '';input.style.height = 'auto';document.getElementById('chipsArea').style.display = 'none';addMsg('user',safeHtml(text));busy = true;setUI(true);showTyping();try{const reply = await callGemini(text);removeTyping();addMsg('bot',safeHtml(reply));}catch (e){removeTyping();// Show friendly error without crashing
-const errMsg = getErrorMessage(e);showToast(errMsg);// Re-enable so user can retry}busy = false;setUI(false);input.focus();}function getErrorMessage(e){if (!e) return 'Error desconocido. Inténtalo de nuevo.';const msg = e.message || '';if (msg.includes('RATE_LIMIT')) return '⏳ Demasiadas peticiones. Espera un momento e inténtalo de nuevo.';if (msg.includes('HTTP_5')) return '⚠️ El servicio está ocupado. Inténtalo en unos segundos.';if (msg.includes('HTTP_4')) return '⚠️ Error de autenticación. Comprueba la configuración.';if (msg === 'EMPTY_RESPONSE') return '⚠️ Respuesta vacía. Inténtalo de nuevo.';if (e.name === 'AbortError') return '⏱️ La respuesta tardó demasiado. Inténtalo de nuevo.';if (msg.toLowerCase().includes('network') || msg.toLowerCase().includes('failed to fetch'))
-return '📵 Sin conexión a internet. Comprueba tu red.';return '⚠️ Error temporal. Inténtalo de nuevo.';}// ─── CHIPS & SCENARIOS ─────────────────────────────────────────────────────
-function sendChip(text){if (busy) return;document.getElementById('userInput').value = text;sendMessage();}function launchScenario(cardEl,text){if (busy) return;document.querySelectorAll('.sc-card').forEach(c => c.style.borderColor = '');cardEl.style.borderColor = '#1a5e8a';resetChat(false);setTimeout(() =>{document.getElementById('userInput').value = text;sendMessage();},150);}// ─── RESET ─────────────────────────────────────────────────────────────────
-function resetChat(withGreeting = true){if (busy) return;history = [];currentModelIdx = 0;document.getElementById('messages').innerHTML = '';document.getElementById('chipsArea').style.display = 'flex';document.querySelectorAll('.sc-card').forEach(c => c.style.borderColor = '');if (withGreeting) showGreeting();
-// Si no hay key guardada, pedir al inicio
-if (!getApiKey()) { setTimeout(() => promptApiKey(), 800); }}function showGreeting(){
-  // El saludo ya está en el HTML, solo inicializamos history vacío
-  history = [];
-});
-}// ─── INPUT AUTO-RESIZE ─────────────────────────────────────────────────────
-document.getElementById('userInput').addEventListener('input',function (){this.style.height = 'auto';this.style.height = Math.min(this.scrollHeight,96) + 'px';});// Enter = enviar | Shift+Enter = nueva línea
-document.getElementById('userInput').addEventListener('keydown',function (e){if (e.key === 'Enter' && !e.shiftKey){e.preventDefault();sendMessage();}});// ─── INIT ──────────────────────────────────────────────────────────────────
-showGreeting();
-// Si no hay key guardada, pedir al inicio
-if (!getApiKey()) { setTimeout(() => promptApiKey(), 800); }</script>
+    <div class="messages" id="messages">
+      <div class="msg bot">
+        <div class="msg-av">🐾</div>
+        <div class="bubble">¡Hola! 👋 Soy el asistente de Medivet. Estoy aquí para ayudarte con tu mascota: citas, urgencias, precios o cualquier consulta. ¿En qué puedo ayudarte hoy?</div>
+      </div>
+    </div>
 
-<!-- API KEY OVERLAY -->
-<div id="apiOverlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:9999;align-items:center;justify-content:center;">
-  <div style="background:#0d1b2a;border:1px solid #1a5e8a;border-radius:16px;padding:40px;max-width:400px;width:90%;text-align:center;">
-    <div style="font-size:2.5rem;margin-bottom:16px;">🔑</div>
-    <h2 style="color:#e0f0ff;font-size:1.3rem;margin-bottom:8px;">Configurar demo</h2>
-    <p style="color:#94a3b8;font-size:0.9rem;margin-bottom:24px;">Introduce tu Google AI API Key para activar el asistente. Solo se guarda en esta sesión.</p>
-    <input id="apiKeyInput" type="password" placeholder="AIzaSy..." 
-      style="width:100%;padding:12px 16px;border-radius:8px;border:1px solid #1a5e8a;background:#0a1628;color:#e0f0ff;font-size:0.9rem;box-sizing:border-box;margin-bottom:8px;"
-      onkeydown="if(event.key==='Enter')confirmApiKey()">
-    <div id="apiKeyError" style="display:none;color:#f87171;font-size:0.8rem;margin-bottom:8px;">Key inválida. Debe empezar por AIza...</div>
-    <button onclick="confirmApiKey()" style="width:100%;padding:12px;background:linear-gradient(135deg,#1a5e8a,#0d3f5e);color:white;border:none;border-radius:8px;font-size:1rem;cursor:pointer;margin-top:8px;">
-      Activar demo ✓
-    </button>
-    <p style="color:#475569;font-size:0.75rem;margin-top:16px;">La key no se almacena en ningún servidor. Solo existe en tu navegador durante esta sesión.</p>
+    <div class="input-area">
+      <div class="input-row">
+        <textarea id="userInput" placeholder="Escribe tu pregunta..." rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+        <button class="send-btn" id="sendBtn" onclick="sendMessage()">➤</button>
+      </div>
+    </div>
   </div>
 </div>
+
+<!-- Overlay API Key -->
+<div class="overlay" id="apiOverlay">
+  <div class="overlay-box">
+    <h2>🔑 Introduce tu API Key</h2>
+    <p>Para activar el asistente necesitas una API Key de Google AI Studio. Es gratuita y solo se guarda en tu navegador.</p>
+    <input type="password" id="apiKeyInput" placeholder="AIza..." />
+    <button onclick="saveApiKey()">Activar asistente</button>
+    <div class="skip" onclick="hideOverlay()">Omitir por ahora</div>
+  </div>
+</div>
+
+<script>
+var busy = false;
+var history = [];
+var API_KEY = '';
+
+var SYSTEM = 'Eres el asistente virtual de MEDIVET España, red de más de 45 clínicas veterinarias con 500 profesionales. Tu nombre es "Asistente Medivet".\n\nREGLA CRÍTICA DE FORMATO: Máximo 3 frases cortas y COMPLETAS por respuesta. Nunca cortes una frase. Termina siempre con punto o exclamación.\n\nTU OBJETIVO: Convertir cada conversación en una cita o registro de interés.\n\nURGENCIAS: Ante síntomas graves (dificultad respiratoria, convulsiones, traumas, sangrados) dirige a la clínica urgencias 24h más cercana.\n\nCITAS: Recoge nombre mascota, especie/raza, motivo. Confirma la clínica más cercana y ofrece horarios (LUN-VIE 09-20h, SAB 10-14h).\n\nPRECIOS ORIENTATIVOS:\n- Consulta: 40-60 euros\n- Vacuna: 20-40 euros\n- Castración gato: 120-200 euros\n- Castración perro pequeño menos 10kg: 150-250 euros\n- Castración perro mediano 10-20kg: 200-350 euros\n- Castración perro grande más 20kg: 300-500 euros\n- Limpieza dental: 150-300 euros\n- Plan Salud Cachorro: 19 euros al mes\n- Plan Salud Adulto: 25 euros al mes\n- Plan Salud Senior: 35 euros al mes\n\nCLÍNICAS PRINCIPALES:\n- Granollers: C/ Francesc Macià 74, tel 938 791 234\n- Mollet del Vallès: C/ Berenguer III 45, tel 935 930 456 (urgencias 24h)\n- Sabadell: C/ Calvet d\'en Busquets 12, tel 937 273 890\n- Barcelona Eixample: C/ Urgell 143, tel 934 521 678\n- Barcelona Gracia: C/ Gran de Gràcia 87, tel 934 125 789\n- Madrid Salamanca: C/ Serrano 201, tel 914 321 567\n- Madrid Chamberí: C/ Fuencarral 89, tel 914 876 234\n- Valencia: C/ Colón 45, tel 963 214 567\n- Sevilla: C/ Sierpes 67, tel 954 123 456\n\nPROXIMIDAD: Si el usuario menciona Mollet del Vallès, la clínica más cercana es Granollers (10 min). Si menciona Barcelona, pregunta el barrio.\n\nTONO: Cercano, profesional, empático con mascotas. Usa algún emoji de mascota ocasionalmente.';
+
+function getApiKey() {
+  return sessionStorage.getItem('medivet_api_key') || '';
+}
+
+function saveApiKey() {
+  var val = document.getElementById('apiKeyInput').value.trim();
+  if (!val) { showToast('Introduce una API Key válida'); return; }
+  sessionStorage.setItem('medivet_api_key', val);
+  API_KEY = val;
+  hideOverlay();
+  showToast('API Key guardada correctamente');
+}
+
+function hideOverlay() {
+  document.getElementById('apiOverlay').classList.add('hidden');
+}
+
+function showToast(msg) {
+  var old = document.querySelector('.toast');
+  if (old) old.remove();
+  var t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(function() { if (t.parentNode) t.remove(); }, 4000);
+}
+
+function addMsg(role, text) {
+  var m = document.getElementById('messages');
+  var d = document.createElement('div');
+  d.className = 'msg ' + role;
+  var safe = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  safe = safe.replace(/\*\*([\s\S]*?)\*\*/g, '<strong>$1</strong>');
+  safe = safe.replace(/\n/g, '<br>');
+  if (role === 'bot') {
+    d.innerHTML = '<div class="msg-av">🐾</div><div class="bubble">' + safe + '</div>';
+  } else {
+    d.innerHTML = '<div class="bubble">' + safe + '</div>';
+  }
+  m.appendChild(d);
+  m.scrollTop = m.scrollHeight;
+  return d;
+}
+
+function showTyping() {
+  var m = document.getElementById('messages');
+  var d = document.createElement('div');
+  d.id = 'typing';
+  d.className = 'typing-msg';
+  d.innerHTML = '<div class="msg-av">🐾</div><div class="typing-bub"><span></span><span></span><span></span></div>';
+  m.appendChild(d);
+  m.scrollTop = m.scrollHeight;
+}
+
+function removeTyping() {
+  var t = document.getElementById('typing');
+  if (t) t.remove();
+}
+
+function setUI(disabled) {
+  document.getElementById('sendBtn').disabled = disabled;
+  document.getElementById('userInput').disabled = disabled;
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = el.scrollHeight + 'px';
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+}
+
+async function callGemini(userText) {
+  var key = getApiKey();
+  if (!key) {
+    document.getElementById('apiOverlay').classList.remove('hidden');
+    throw new Error('NO_KEY');
+  }
+
+  history.push({ role: 'user', parts: [{ text: userText }] });
+
+  var url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + key;
+
+  var body = {
+    system_instruction: { parts: [{ text: SYSTEM }] },
+    contents: history,
+    generationConfig: { maxOutputTokens: 300, temperature: 0.7 }
+  };
+
+  var lastErr;
+  for (var attempt = 0; attempt < 3; attempt++) {
+    try {
+      var ctrl = new AbortController();
+      var timer = setTimeout(function() { ctrl.abort(); }, 20000);
+      var res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+        signal: ctrl.signal
+      });
+      clearTimeout(timer);
+      if (!res.ok) {
+        var errBody = await res.text();
+        if (res.status === 401 || res.status === 403) {
+          history.pop();
+          sessionStorage.removeItem('medivet_api_key');
+          document.getElementById('apiKeyInput').value = '';
+          document.getElementById('apiOverlay').classList.remove('hidden');
+          throw new Error('INVALID_KEY');
+        }
+        throw new Error('HTTP_' + res.status);
+      }
+      var data = await res.json();
+      var reply = data.candidates[0].content.parts[0].text || '';
+      if (!reply) throw new Error('EMPTY');
+      history.push({ role: 'model', parts: [{ text: reply }] });
+      return reply;
+    } catch(e) {
+      lastErr = e;
+      if (e.message === 'INVALID_KEY' || e.message === 'NO_KEY') throw e;
+      if (attempt < 2) await new Promise(function(r) { setTimeout(r, 1000); });
+    }
+  }
+  history.pop();
+  throw lastErr;
+}
+
+async function sendMessage() {
+  if (busy) return;
+  var input = document.getElementById('userInput');
+  var text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  input.style.height = 'auto';
+  addMsg('user', text);
+  busy = true;
+  setUI(true);
+  showTyping();
+  try {
+    var reply = await callGemini(text);
+    removeTyping();
+    addMsg('bot', reply);
+  } catch(e) {
+    removeTyping();
+    if (e.message !== 'NO_KEY' && e.message !== 'INVALID_KEY') {
+      var msg = '⚠️ Error temporal. Inténtalo de nuevo.';
+      if (e.name === 'AbortError') msg = '⏱️ Timeout. Inténtalo de nuevo.';
+      showToast(msg);
+    }
+  }
+  busy = false;
+  setUI(false);
+  input.focus();
+}
+
+function runScenario(card, text) {
+  if (busy) return;
+  document.querySelectorAll('.sc-card').forEach(function(c) { c.style.borderLeftColor = ''; });
+  card.style.borderLeftColor = '#1a5e8a';
+  resetDemo(false);
+  setTimeout(function() {
+    document.getElementById('userInput').value = text;
+    sendMessage();
+  }, 150);
+}
+
+function resetDemo(withGreeting) {
+  if (withGreeting === undefined) withGreeting = true;
+  if (busy) return;
+  history = [];
+  var m = document.getElementById('messages');
+  m.innerHTML = '';
+  document.querySelectorAll('.sc-card').forEach(function(c) { c.style.borderLeftColor = ''; });
+  if (withGreeting) {
+    addMsg('bot', '¡Hola! 👋 Soy el asistente de Medivet. Estoy aquí para ayudarte con tu mascota: citas, urgencias, precios o cualquier consulta. ¿En qué puedo ayudarte hoy?');
+  }
+}
+
+// Init
+window.addEventListener('load', function() {
+  var key = getApiKey();
+  if (!key) {
+    setTimeout(function() {
+      document.getElementById('apiOverlay').classList.remove('hidden');
+    }, 800);
+  }
+});
+</script>
 </body>
 </html>
