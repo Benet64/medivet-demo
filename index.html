@@ -226,7 +226,7 @@ async function callBackend(userText) {
   for (var i = 0; i < 3; i++) {
     try {
       var ctrl = new AbortController();
-      var timer = setTimeout(function() { ctrl.abort(); }, 45000);
+      var timer = setTimeout(function() { ctrl.abort(); }, 60000);
       var res = await fetch(BACKEND, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -242,7 +242,7 @@ async function callBackend(userText) {
       return reply;
     } catch(e) {
       lastErr = e;
-      if (i < 2) await new Promise(function(r) { setTimeout(r, 1200); });
+      if (i < 2) await new Promise(function(r) { setTimeout(r, 2000); });
     }
   }
   history.pop();
@@ -266,8 +266,11 @@ async function sendMessage() {
     addMsg('bot', reply);
   } catch(e) {
     removeTyping();
-    var msg = e.name === 'AbortError' ? 'Timeout. Inténtalo de nuevo.' : 'Error de conexión. Inténtalo de nuevo.';
+    var msg = e.name === 'AbortError'
+      ? 'El servidor tardó demasiado. Inténtalo de nuevo.'
+      : ('Error: ' + (e.message || 'conexión fallida') + '. Inténtalo de nuevo.');
     showToast(msg);
+    console.error('Chat error:', e);
   }
   busy = false;
   setUI(false);
