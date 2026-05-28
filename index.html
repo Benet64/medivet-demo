@@ -145,7 +145,7 @@ function confirmApiKey(){
 // Función directa a Gemini (sin backend)
 const GEMINI_URL_TPL = (key) => `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`;
 
-function ensureComplete(text){if (!text) return '';const t = text.trimEnd();if (/[.!?\u{1F43E}\u{1F60A}\u{1F48A}\u{1FA7A}\u{2705}\u{1F436}\u{1F431}\u{2764}\uFE0F\u{1F44B}\u{1F64F}]$/u.test(t)) return t;const last = Math.max(t.lastIndexOf('.'),t.lastIndexOf('!'),t.lastIndexOf('?'));return last > 5 ? t.substring(0,last + 1):t + '.';}
+function ensureComplete(text){if (!text) return '';const t = text.trimEnd();if (/[.!?]$/.test(t)) return t;const last = Math.max(t.lastIndexOf('.'),t.lastIndexOf('!'),t.lastIndexOf('?'));return last > 5 ? t.substring(0,last + 1):t + '.';}
 function sleep(ms){return new Promise(r => setTimeout(r,ms));}
 async function fetchWithTimeout(url,options,timeoutMs){const controller = new AbortController();const timer = setTimeout(() => controller.abort(),timeoutMs);try{const res = await fetch(url,{...options,signal:controller.signal});clearTimeout(timer);return res;}catch (e){clearTimeout(timer);throw e;}}
 async function callGemini(userText){
